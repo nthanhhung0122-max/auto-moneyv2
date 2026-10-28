@@ -1,30 +1,31 @@
-name: Auto Money Bot
+name: Auto TelePet 24/7 (Acc 3)
 
 on:
-  schedule:
-    # Lịch chạy tự động: Cứ mỗi 15 phút bot sẽ tự chạy 1 lần
-    - cron: '*/15 * * * *'
-  
-  # Cho phép bạn bấm nút chạy thủ công bất cứ lúc nào trên web GitHub
   workflow_dispatch:
+  schedule:
+    - cron: '0 */5 * * *'
 
 jobs:
   run-bot:
     runs-on: ubuntu-latest
+    timeout-minutes: 350
 
     steps:
-      - name: Checkout repository
+      - name: Checkout ma nguon
         uses: actions/checkout@v4
 
-      - name: Set up Python
+      - name: Cai dat Python 3.10
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
-      - name: Install dependencies
+      - name: Cai dat thu vien can thiet
         run: |
           python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install requests telethon colorama
 
-      - name: Run script
-        run: python auto_kiemtien3.py
+      - name: Chay Bot cay tien
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: |
+          python auto_kiemtien2.py
